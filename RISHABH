@@ -1,22 +1,46 @@
-from telethon import TelegramClient, events, Button
-api_id = 15563529
-api_hash = 'c8e8a927f89fd5d00322c00760035030'
-token = '5106990765:AAGVD4xpGDiJQlZxbsQozi1XTvxf98bHxGU'
-client = TelegramClient("legendx", api_id, api_hash).start(bot_token=token)
-'''
-ophghf
-'''
-rishabh = [Button.url('JOIN THANOS', 'https://t.me/rishuxp')]
-@client.on(events.NewMessage(incoming=True))
-async def start(event):
-#echo = event.text
-# await event.reply(echo)
-  msg = f'SENDER USERNAME: {event.sender.username} AND SENDER user id: {event.sender.id} message: {event.text}'
-  await client.send_message("Ultron_owner", msg, link_preview=False, buttons=rishabh)
-# event.sender.first_name = sender ka first name
-# event.sender.last_name = sender ka last name
 
-# complete exercize please
-	
-	
-client.run_until_disconnected()
+
+_get_repolink () {
+    local regex
+    regex='(https?)://github.com/.+/.+'
+    if [[ $thanosuser_REPO == "rishabh_ai" ]]
+    then
+        echo "aHR0cHM6Ly9naXRodWIuY29tL3RoYW5vc3VzZXIvcmlzaGFiaF9haS9hcmNoaXZlL21haW4uemlw" | base64 -d
+    elif [[ $thanosuser_REPO == "rishabh_ai" ]]
+    then
+        echo "aHR0cHM6Ly9naXRodWIuY29tL3RoYW5vc3VzZXIvcmlzaGFiaF9haS9hcmNoaXZlL21haW4uemlw" | base64 -d
+    elif [[ $thanosuser_REPO =~ $regex ]]
+    then
+        if [[ $thanosuser_REPO_BRANCH ]]
+        then
+            echo "${thanosuser_REPO}/archive/${thanosuser_REPO_BRANCH}.zip"
+        else
+            echo "${thanosuser_REPO}/archive/main.zip"
+        fi
+    else
+        echo "aHR0cHM6Ly9naXRodWIuY29tL3RoYW5vc3VzZXIvcmlzaGFiaF9haS9hcmNoaXZlL21haW4uemlw" | base64 -d
+    fi
+}
+
+
+_pro_bot () {
+    local zippath
+    zippath="main.zip"
+    echo "  💕 Downloading ＴＨΛＮ♢Ｓ－ＰＲ♢ Source Code... 💕"
+    wget -q $(_get_repolink) -O "$zippath"
+    echo "  💓Unpacking Data...💓"
+    mainPATH=$(zipinfo -1 "$zippath" | grep -v "/.");
+    unzip -qq "$zippath"
+    echo " 💔 Download Complete Now Installing 💔"
+    echo "  ⚡ INSTALLING ＴＨΛＮ♢Ｓ－ＰＲ♢ ⚡"
+    rm -rf "$zippath"
+    sleep 5
+    cd $mainPATH
+    echo "    ⚡Starting ＴＨΛＮ♢Ｓ－ＰＲ♢⚡     "
+    echo " 💞 NOW WAIT 3 MIN INSTALLING ALL THANOS PLUGIN 💞"
+
+    python3 ../setup/updater.py ../requirements.txt requirements.txt
+    python3 -m userbot
+}
+
+_pro_bot
